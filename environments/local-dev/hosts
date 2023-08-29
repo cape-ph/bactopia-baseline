@@ -1,0 +1,4 @@
+
+[all]
+bactopia-baseline ansible_connection=local
+

@@ -1,0 +1,62 @@
+---
+# run provision and build tasks on all hosts (various groups specified below)
+
+# hosts: all handles tasks for all hosts and gets variables from all.yml
+- hosts: all
+  become: yes
+  vars_files:
+    - "{{ inventory_dir }}/group_vars/all.yml"
+
+  pre_tasks:
+      - name: Get current server users
+        getent:
+            database: passwd
+            fail_key: true
+
+      - name: Add main service user "{{ bactopia_user }}" if it doesn't exist
+        ansible.builtin.user:
+            name: "{{ bactopia_user }}"
+            shell: /sbin/nologin
+            comment: "bactopia system user"
+            state: present
+        with_items: "{{ bactopia_user }}"
+        when: bactopia_user not in ansible_facts.getent_passwd
+
+      - name: Install git
+        ansible.builtin.yum:
+            name: git
+            state: present
+
+      - name: Install docker
+        ansible.builtin.yum:
+            name: docker
+            state: present
+
+      - name: Add {{ bactopia_user }} to docker users
+        ansible.builtin.user:
+          name: "{{ bactopia_user }}"
+          append: yes
+          groups: docker
+      
+      - name: Enable docker service
+        ansible.builtin.systemd:
+            name: docker
+            enabled: true
+            
+      - name: Reload systemd daemon to re-read configs
+        ansible.builtin.systemd:
+            daemon_reload: true
+
+      - name: Start docker service
+        ansible.builtin.systemd:
+            name: docker
+            state: started
+            
+      - name: pull bactopia container image
+        shell: docker pull bactopia/bactopia
+
+      - name: Copy bactopia run script to the VM
+        ansible.builtin.copy:
+            src: files/run-bactopia-local.sh
+            dest: /home/vagrant/run-bactopia-local.sh
+            mode: '755'
