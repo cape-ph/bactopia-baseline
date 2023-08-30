@@ -21,3 +21,29 @@ A small vagrant VM to provide a baseline for running and testing the bactopia pi
    vagrant ssh
    sudo ./run-backtopia.sh
    ```
+
+### Useful Vagrant Commands
+
+#### Start the VM
+
+```sh
+vagrant up
+```
+
+#### Shutdown the VM
+
+```sh
+vagrant halt
+```
+
+#### Destroy the VM
+
+```sh
+vagrant destroy
+```
+
+#### VM Status
+
+```sh
+vagrant status
+```
