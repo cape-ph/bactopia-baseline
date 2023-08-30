@@ -83,13 +83,13 @@ Vagrant.configure(2) do |config|
             ansible.playbook = "playbook.yml"
             ansible.inventory_path = "environments/local-dev"
             ansible.limit='all'
-        #    ansible.vault_password_file='./vault/local-dev-vault'
-        #    ansible.galaxy_role_file='./dev-dependencies/ansible-roles.yml'
+            #ansible.vault_password_file='./vault/local-dev-vault'
+            #ansible.galaxy_role_file='./dev-dependencies/ansible-roles.yml'
             # if not specified, the roles will be installed to `/vagrant` in the
             # VM, which is a shared directory that points to the root of this
             # repo (causing roles to end up as appearing to be part of this
             # repo, which isn't great)
-        #    ansible.galaxy_roles_path="/home/vagrant/roles"
+            #ansible.galaxy_roles_path="/home/vagrant/roles"
 
             # NOTE: uncomment this if you wanna debug some verbose ansibles
             #ansible.verbose='-vvvvv'

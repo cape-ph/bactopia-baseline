@@ -5,15 +5,15 @@ bactopia_user: bactopia
 
 # geerlingguy.pip related
 pip_install_packages:
-  # urllib and requests pinning due to
-  # https://github.com/docker/docker-py/issues/3113#issuecomment-1531570788
-  - name: urllib3
-    version: "<2.0.0"
-  - name: requests
-    version: "<2.2.29"
-  - name: docker
-    version: "6.0.1"
+    # urllib and requests pinning due to
+    # https://github.com/docker/docker-py/issues/3113#issuecomment-1531570788
+    - name: urllib3
+      version: "<2.0.0"
+    - name: requests
+      version: "<2.2.29"
+    - name: docker
+      version: "6.0.1"
 
 # geerlingguy.docker related
 docker_users:
-  - "{{ bactopia_user }}"
+    - "{{ bactopia_user }}"
