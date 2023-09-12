@@ -60,7 +60,7 @@ Vagrant.configure(2) do |config|
         
         # NOTE: requires env where vagrant is run to have exported env var like
         # `export VAGRANT_EXPERIMENTAL="disks"`
-        bactopia_baseline.vm.disk :disk, size: "75GB", primary: true
+        bactopia_baseline.vm.disk :disk, size: "50GB", primary: true
 
         bactopia_baseline.vm.provider "virtualbox" do |v|
             v.memory = 8192

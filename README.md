@@ -5,7 +5,7 @@ A small vagrant VM to provide a baseline for running and testing the bactopia pi
 ## Requirements
 
 -   [Vagrant](https://www.vagrantup.com/) (with experimental [`disks`](https://developer.hashicorp.com/vagrant/docs/disks/usage) feature enabled)
--   75gb of available storage
+-   50gb of available storage
 -   8gb of available RAM
 -   2 available CPU cores
 
