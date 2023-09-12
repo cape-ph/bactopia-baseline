@@ -16,6 +16,8 @@ fi
 
 # Run bactopia
 bactopia -profile docker \
+    --max_cpus 2 \
+    --max_memory 6 \
     --accession SRX4563634 \
     --coverage 100 \
     --genome_size 2800000 \

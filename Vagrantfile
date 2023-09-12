@@ -63,8 +63,8 @@ Vagrant.configure(2) do |config|
         bactopia_baseline.vm.disk :disk, size: "75GB", primary: true
 
         bactopia_baseline.vm.provider "virtualbox" do |v|
-            v.memory = 2048
-            v.cpus = 1
+            v.memory = 8192
+            v.cpus = 2
             v.customize ['modifyvm', :id, '--cableconnected1', 'on']
             # use the host to resolve DNS.
             v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
