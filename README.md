@@ -15,11 +15,11 @@ A small vagrant VM to provide a baseline for running and testing the bactopia pi
     VAGRANT_EXPERIMENTAL="disks" vagrant up
     ```
 
-2. `ssh` into the new VM and execute the `run-bactopia-local.sh` script as root
+2. `ssh` into the new VM and execute the `run-bactopia-local.sh` script as root inside of a login shell to load anaconda and the bactopia environment
 
     ```sh
     vagrant ssh
-    sudo ./run-backtopia.sh
+    sudo bash -l -c /home/vagrant/run-bactopia-local.sh
     ```
 
 ### Useful Vagrant Commands
