@@ -1,6 +1,8 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+ENV["VAGRANT_EXPERIMENTAL"] = "disks"
+
 options = {
     basebox_name:  "bento/amazonlinux-2",
     basebox_version: "202305.26.0",
