@@ -8,7 +8,7 @@ A small vagrant VM to provide a baseline for running and testing the bactopia pi
 -   [Virtual Box](https://www.virtualbox.org/)
 -   50gb of available storage
 -   8gb of available RAM
--   2 available CPU cores
+-   4 available CPU cores
 
 ## Running
 
