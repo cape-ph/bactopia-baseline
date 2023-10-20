@@ -50,23 +50,15 @@ Vagrant.configure(2) do |config|
         # (from the README) setup is used, this will give us access to the
         # software repo in the VM as well, allowing us to rebuild development
         # docker container images
-        bactopia_baseline.vm.synced_folder "../", "/vagrant_data"
+        bactopia_baseline.vm.synced_folder "./output", "/output", create: true
 
-        # shares in the development vault directory for ansible to use
-        bactopia_baseline.vm.synced_folder "./vault",
-            "/vagrant/vault",
-            id: "vault",
-            owner: "vagrant",
-            group: "vagrant",
-            mount_options: ["dmode=775,fmode=664"]
-        
         # NOTE: requires env where vagrant is run to have exported env var like
         # `export VAGRANT_EXPERIMENTAL="disks"`
         bactopia_baseline.vm.disk :disk, size: "50GB", primary: true
 
         bactopia_baseline.vm.provider "virtualbox" do |v|
             v.memory = 8192
-            v.cpus = 2
+            v.cpus = 4
             v.customize ['modifyvm', :id, '--cableconnected1', 'on']
             # use the host to resolve DNS.
             v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
@@ -77,6 +69,7 @@ Vagrant.configure(2) do |config|
 
         # run the ansible playbook to setup the machine
         bactopia_baseline.vm.provision "ansible_local" do |ansible|
+            ansible.compatibility_mode = "2.0"
             ansible.extra_vars = {
                 env: "local-dev",
             }

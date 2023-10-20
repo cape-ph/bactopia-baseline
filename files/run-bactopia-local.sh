@@ -7,18 +7,11 @@
 
 # run with `sudo bash -l -c /home/vagrant/run-bactopia-local.sh`
 
-outdir=/output
-
-echo "Creating the output directory if needed."
-if [[ ! -e ${outdir} ]]; then
-    mkdir -p ${outdir}
-fi
-
 # Run bactopia
 bactopia -profile docker \
-    --max_cpus 2 \
+    --max_cpus 4 \
     --max_memory 6 \
     --accession SRX4563634 \
     --coverage 100 \
     --genome_size 2800000 \
-    --outdir ${outdir}/ena-single-sample
+    --outdir /output
