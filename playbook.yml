@@ -23,11 +23,6 @@
         with_items: "{{ bactopia_user }}"
         when: bactopia_user not in ansible_facts.getent_passwd
 
-      - name: Install python3
-        ansible.builtin.yum:
-            name: python3
-            state: present
-
       - name: Install git
         ansible.builtin.yum:
             name: git
@@ -51,17 +46,17 @@
             enabled: true
             state: started
 
-      - name: Download Anaconda3
+      - name: Download Miniconda3
         ansible.builtin.get_url:
-            url: https://repo.anaconda.com/archive/Anaconda3-2023.07-2-Linux-x86_64.sh
-            dest: /tmp/install-anaconda3.sh
-            checksum: sha256:589fb34fe73bc303379abbceba50f3131254e85ce4e7cd819ba4276ba29cad16
+            url: https://repo.anaconda.com/miniconda/Miniconda3-py311_23.9.0-0-Linux-x86_64.sh
+            dest: /tmp/install-miniconda3.sh
+            checksum: sha256:43651393236cb8bb4219dcd429b3803a60f318e5507d8d84ca00dafa0c69f1bb
             mode: "0550"
 
       - name: Create conda folder
         become: true
         ansible.builtin.file:
-            path: /opt/anaconda3
+            path: /opt/miniconda3
             state: directory
             owner: root
             mode: "0755"
@@ -69,39 +64,39 @@
 
       - name: Install conda
         ansible.builtin.command: |
-            /tmp/install-anaconda3.sh -b -u -p /opt/anaconda3
+            /tmp/install-miniconda3.sh -b -u -p /opt/miniconda3
         changed_when: false
 
-      - name: Remove anaconda installer
+      - name: Remove conda installer
         ansible.builtin.file:
             state: absent
-            path: /tmp/install-anaconda3.sh
+            path: /tmp/install-miniconda3.sh
 
-      - name: Add anaconda bin to path on login
+      - name: Add conda bin to path on login
         ansible.builtin.lineinfile:
             path: /etc/profile
-            line: "export PATH=/opt/anaconda3/bin:$PATH"
+            line: "export PATH=/opt/miniconda3/bin:$PATH"
             create: true
             mode: "0644"
 
-      - name: Initialize anaconda on login
+      - name: Initialize conda on login
         become: true
         ansible.builtin.file:
-            src: /opt/anaconda3/etc/profile.d/conda.sh
+            src: /opt/miniconda3/etc/profile.d/conda.sh
             dest: /etc/profile.d/conda.sh
             state: link
 
       - name: Allow all to read conda folder
         become: true
         ansible.builtin.file:
-            path: /opt/anaconda3
+            path: /opt/miniconda3
             mode: +r
             recurse: true
 
       - name: Allow execution for conda binaries
         become: true
         ansible.builtin.file:
-            path: /opt/anaconda3/bin
+            path: /opt/miniconda3/bin
             mode: +x
             recurse: true
 

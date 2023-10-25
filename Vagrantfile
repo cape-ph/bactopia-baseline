@@ -8,7 +8,6 @@ options = {
     basebox_version: "202305.26.0",
 }
 
-
 # Install Ansible using hack since we can't install epel as default workflow
 # expects
 $script = <<-SCRIPT
@@ -34,16 +33,6 @@ Vagrant.configure(2) do |config|
             guest: 22,
             host: 2222,
             id: "ssh"
-
-        # http - will redirect to https
-        bactopia_baseline.vm.network :forwarded_port,
-            guest: 80,
-            host: 8080
-
-        # https
-        bactopia_baseline.vm.network :forwarded_port,
-            guest: 443,
-            host: 8443
 
         # shared host directory for the VM. we mount the parent directory of the
         # repo to /vagrant_data in the VM. if the standard "Getting Started"
@@ -78,13 +67,6 @@ Vagrant.configure(2) do |config|
             ansible.playbook = "playbook.yml"
             ansible.inventory_path = "environments/local-dev"
             ansible.limit='all'
-            #ansible.vault_password_file='./vault/local-dev-vault'
-            #ansible.galaxy_role_file='./dev-dependencies/ansible-roles.yml'
-            # if not specified, the roles will be installed to `/vagrant` in the
-            # VM, which is a shared directory that points to the root of this
-            # repo (causing roles to end up as appearing to be part of this
-            # repo, which isn't great)
-            #ansible.galaxy_roles_path="/home/vagrant/roles"
 
             # NOTE: uncomment this if you wanna debug some verbose ansibles
             #ansible.verbose='-vvvvv'

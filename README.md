@@ -6,6 +6,7 @@ A small vagrant VM to provide a baseline for running and testing the bactopia pi
 
 -   [Vagrant](https://www.vagrantup.com/)
 -   [Virtual Box](https://www.virtualbox.org/)
+-   [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) (`vagrant plugin install vagrant-vbguest`)
 -   50gb of available storage
 -   8gb of available RAM
 -   4 available CPU cores
