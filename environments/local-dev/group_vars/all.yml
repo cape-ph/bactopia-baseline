@@ -2,7 +2,3 @@
 
 # the username that most of this stuff runs as
 bactopia_user: bactopia
-
-# geerlingguy.docker related
-docker_users:
-    - "{{ bactopia_user }}"
